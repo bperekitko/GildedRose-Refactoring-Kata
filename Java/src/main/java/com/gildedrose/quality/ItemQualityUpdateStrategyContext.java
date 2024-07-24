@@ -16,11 +16,12 @@ public class ItemQualityUpdateStrategyContext {
         strategyByItemName.put(ItemType.SULFURAS, new SulfurasQualityUpdateStrategy());
         strategyByItemName.put(ItemType.BACKSTAGE_PASS, new BackstagePassQualityUpdateStrategy());
         strategyByItemName.put(ItemType.CONJURED, new ConjuredQualityUpdateStrategy());
+        strategyByItemName.put(ItemType.OTHER, new DefaultQualityUpdateStrategy());
     }
 
     public ItemQualityUpdateStrategy getStrategyFor(Item item) {
         ItemType itemType = ItemType.from(item);
-        ItemQualityUpdateStrategy strategy = strategyByItemName.getOrDefault(itemType, new DefaultQualityUpdateStrategy());
+        ItemQualityUpdateStrategy strategy = strategyByItemName.get(itemType);
         return decoratedWithGuards(strategy);
     }
 
